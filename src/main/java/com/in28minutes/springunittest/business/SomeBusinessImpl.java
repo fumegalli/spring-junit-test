@@ -2,6 +2,8 @@ package com.in28minutes.springunittest.business;
 
 import com.in28minutes.springunittest.data.SomeDataService;
 
+import java.util.Arrays;
+
 public class SomeBusinessImpl {
 
     private SomeDataService someDataService;
@@ -11,23 +13,12 @@ public class SomeBusinessImpl {
     }
 
     public int sum(int[] data) {
-        int sum = 0;
-
-        for (int value : data) {
-            sum += value;
-        }
-
-        return sum;
+        return Arrays.stream(data).reduce(Integer::sum).orElse(0);
     }
 
     public int sumUsingDataService() {
         int[] data = someDataService.retrieveAllData();
-        int sum = 0;
 
-        for (int value : data) {
-            sum += value;
-        }
-
-        return sum;
+        return sum(data);
     }
 }
